@@ -1,3 +1,7 @@
+class Cipher:
+    pass
+
+
 class FileHandler:
     pass
 
