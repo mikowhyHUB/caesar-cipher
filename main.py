@@ -43,11 +43,11 @@ class Buffer:
         self.menu_options = {1: self.cipher.encrypt, 2: self.cipher.decrypt}
         self.file_options = {1: 'print', 2: 'save to file'}
 
-    def execute_menu_choice(self):
-        print(self.menu_options.get(self.menu.show_menu())())
+    def execute_menu_choice(self, x):
+        print(self.menu_options.get(x)())
 
     def execute_file_option(self):
-        print(self.file_options.get(self.menu.show_file_options())())
+        print(self.file_options.get(self.menu.show_file_options()))
 
 
 class Menu:
@@ -66,10 +66,13 @@ class Manager:
 
     def __init__(self):
         self.buffer = Buffer()
+        self.menu = Menu()
 
     def start(self):
-        Menu().welcome()
-        self.buffer.execute_menu_choice()
+        self.menu.welcome()
+        x = self.menu.show_menu()
+        self.buffer.execute_menu_choice(x)
+        return x
 
     def options(self):
         self.buffer.execute_file_option()
@@ -77,9 +80,11 @@ class Manager:
 
 def main():
     manager = Manager()
-    manager.start()
-    # if 'costam to wtedy option'
-    manager.options()
+    menu = Menu()
+
+    x = manager.start()
+    if x == 1:
+        print('yey')
 
 
 if __name__ == '__main__':
