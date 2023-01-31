@@ -4,8 +4,8 @@ import string
 
 class Cipher:
 
-    def encrypt(self, plain_text: str) -> str:
-        n = 13
+    def encrypt(self, plain_text: str,
+                n) -> str:  # todo: lepiej zrobic dwa encrypty/decrypty i input w srodku. bardziej elastyczna metoda
         encrypted = ""
         for i in range(len(plain_text)):
             if plain_text[i] == " ":
@@ -39,13 +39,16 @@ class Buffer:
     pass
 
 
-@dataclass
 class Menu:
-    pass
-    # menu_options: dict = {1: '...', 2: '...', 3: '...'}
-    #
-    # def show(self):
-    #     pass
+    def __init__(self):
+        self.cipher = Cipher
+        self.menu_options = {1: self.cipher.encrypt(), 2: 'test'}
+
+    def show_menu(self):
+        pass
+
+    def options_with_file(self):
+        pass
 
 
 class Manager:
