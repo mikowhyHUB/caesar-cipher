@@ -20,16 +20,16 @@ class Cipher:
     def decrypt(self, cipher_text: str) -> str:
         alphabet = string.ascii_lowercase
         n = 13
-        decrypted_message = ""
+        decrypted = ""
         for char in cipher_text.lower():
             if char in alphabet:
                 position = alphabet.find(char)
                 new_pos = (position - n) % 26
                 new_char = alphabet[new_pos]
-                decrypted_message += new_char
+                decrypted += new_char
             else:
-                decrypted_message += char
-        return decrypted_message
+                decrypted += char
+        return decrypted
 
 
 class FileHandler:
@@ -40,31 +40,46 @@ class Buffer:
     def __init__(self):
         self.cipher = Cipher()
         self.menu = Menu()
-        self.menu_options = {1: self.cipher.encrypt, 2: 'test'}
-        self.file_options = {1: '...', 2: '...'}
+        self.menu_options = {1: self.cipher.encrypt, 2: self.cipher.decrypt}
+        self.file_options = {1: 'print', 2: 'save to file'}
 
-    def execute_choice(self):
+    def execute_menu_choice(self):
         print(self.menu_options.get(self.menu.show_menu())())
+
+    def execute_file_option(self):
+        print(self.file_options.get(self.menu.show_file_options())())
 
 
 class Menu:
+
+    def welcome(self):
+        print('Welcome to Caesar Cipher')
 
     def show_menu(self):
         return int(input('Options 1,2,3: '))
 
     def show_file_options(self):
-        return int('What would you like to do with encrypted text: 1, 2, 3...')
+        return int(input('What would you like to do with encrypted text: 1, 2, 3...'))
 
 
-class Manager(Buffer):
+class Manager:
+
+    def __init__(self):
+        self.buffer = Buffer()
 
     def start(self):
-        Buffer().execute_choice()
+        Menu().welcome()
+        self.buffer.execute_menu_choice()
+
+    def options(self):
+        self.buffer.execute_file_option()
 
 
 def main():
     manager = Manager()
     manager.start()
+    # if 'costam to wtedy option'
+    manager.options()
 
 
 if __name__ == '__main__':
