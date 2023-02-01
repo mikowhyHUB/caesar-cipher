@@ -5,7 +5,7 @@ import json
 
 class Cipher:
     def __init__(self):
-        self.cipher_text = {'name': '', 'status': '', 'rot': ''}
+        self.cipher_text = {'name': 'TO TEST', 'status': '', 'rot': ''}
 
     def encrypt_rot13(self) -> dict:
         rot13 = 13
@@ -71,12 +71,19 @@ class FileHandler(Cipher):
     def __init__(self):
         super().__init__()
 
-    def get_input(self):
-        d = {}
-        name = input('name of file: ')
-        cipher = self.cipher_text
-        d.setdefault(name, cipher)
-        d['status']
+    def saving_file(self):
+        name_of_file = input('How would you like to name this text: ')
+        self.cipher_text[name_of_file] = self.cipher_text['name']
+        del self.cipher_text['name']
+        x = json.dumps(self.cipher_text, indent=4)
+        print(x)
+
+    # def get_input(self):
+    #     d = {}
+    #     name = input('name of file: ')
+    #     cipher = self.cipher_text
+    #     d.setdefault(name, cipher)
+    #     d['status']
 
 
 class Buffer(Cipher):
@@ -93,7 +100,7 @@ class Buffer(Cipher):
         return self.additional_options.get(choice)()
 
     def print_text(self):
-        print(self.test['name'])
+        print(self.cipher_text['name'])
 
 
 class Menu:
@@ -136,13 +143,12 @@ def main():
     manager = Manager()
     menu = Menu()
     file = FileHandler()
-    # file.get_input()
-
-    x = manager.start()  # while true petla z opcjami
-    if x == 1:
-        manager.options_encrypted()
-    elif x == 3:
-        manager.options_encrypted()
+    file.saving_file()
+    # x = manager.start()  # while true petla z opcjami
+    # if x == 1:
+    #     manager.options_encrypted()
+    # elif x == 3:
+    #     manager.options_encrypted()
 
     # manager.options_encrypted()
 
