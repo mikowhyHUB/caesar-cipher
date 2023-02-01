@@ -4,10 +4,10 @@ import string
 
 class Cipher:
     def __init__(self):
-        self.encrypted_text = []
-        self.decrypted_text = []
+        self.cipher_text = ''
+        self.decrypted_text = ''
 
-    def encrypt_rot13(self) -> None:
+    def encrypt_rot13(self) -> str:
         ROT13 = 13
         encrypted = ""
         plain_text = input(
@@ -19,8 +19,8 @@ class Cipher:
                 encrypted += chr((ord(plain_text[i]) + ROT13 - 65) % 26 + 65)
             else:
                 encrypted += chr((ord(plain_text[i]) + ROT13 - 97) % 26 + 97)
-        return self.encrypted_text.append(
-            encrypted)  # a jakby tak zrobic string zamiast list i za kazdym razem jak chce user w menu dodasc nastepny yo sie zamienia. bo jak appendujesz do listy to gorzej
+        self.cipher_text = encrypted
+        return self.cipher_text  # a jakby tak zrobic string zamiast list i za kazdym razem jak chce user w menu dodasc nastepny yo sie zamienia. bo jak appendujesz do listy to gorzej
 
     def encrypt_rot47(self) -> None:
         ROT47 = 47
@@ -35,7 +35,7 @@ class Cipher:
                 encrypted += chr((ord(plain_text[i]) + ROT47 - 97) % 26 + 97)
         return self.buffer.encrypted.append(encrypted)
 
-    def decrypt_rot13(self) -> None:
+    def decrypt_rot13(self) -> str:
         alphabet = string.ascii_lowercase
         ROT13 = 13
         decrypted = ""
@@ -48,7 +48,8 @@ class Cipher:
                 decrypted += new_char
             else:
                 decrypted += char
-        return self.decrypted_text.append(decrypted)
+        self.cipher_text = decrypted
+        return self.cipher_text
 
     def decrypt_rot47(self) -> str:
         alphabet = string.ascii_lowercase
@@ -74,17 +75,17 @@ class Buffer(Cipher):
     def __init__(self):
         super().__init__()
         self.menu = Menu()
-        self.menu_dict = {1: self.encrypt_rot13, 3: self.decrypt_rot13}
-        self.additional_dict = {1: self.encrypted_text, 2: 'save to file'}
+        self.menu_options = {1: self.encrypt_rot13, 3: self.decrypt_rot13}
+        self.additional_options = {1: self.print_text, 2: 'save to file'}
 
-    def menu_choice(self, x):
-        return self.menu_dict.get(x)()
+    def menu_choice(self, choice):
+        return self.menu_options.get(choice)()
 
-    def additional_options(self):
-        print(self.additional_dict.get(self.menu.show_additional_options()))
+    def additional_choice(self, choice):
+        return self.additional_options.get(choice)()
 
-    def decrypt_options(self):
-        print(self)
+    def print_text(self):
+        print(self.cipher_text)
 
 
 class Menu:
@@ -113,26 +114,26 @@ class Manager:
 
     def start(self):
         self.menu.welcome()
-        x = self.menu.show_menu()
-        self.buffer.menu_choice(x)
-        return x
+        choice = self.menu.show_menu()
+        self.buffer.menu_choice(choice)
+        return choice
 
     def options_encrypted(self):
-        self.buffer.additional_options()
-
-    def options_decrypted(self):
-        pass
+        choice = self.menu.show_additional_options()
+        self.buffer.additional_choice(choice)
+        return choice
 
 
 def main():
     manager = Manager()
     menu = Menu()
 
-    x = manager.start()
+    x = manager.start()  # while true petla z opcjami
     if x == 1:
         manager.options_encrypted()
     elif x == 3:
-        manager.options_decrypted()
+        manager.options_encrypted()
+    # manager.options_encrypted()
 
 
 if __name__ == '__main__':
