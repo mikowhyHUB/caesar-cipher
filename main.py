@@ -1,26 +1,26 @@
 from dataclasses import dataclass
 import string
+import json
 
 
 class Cipher:
     def __init__(self):
-        self.cipher_text = ''
-        self.decrypted_text = ''
+        self.cipher_text = {'name': '', 'status': '', 'rot': ''}
 
-    def encrypt_rot13(self) -> str:
-        ROT13 = 13
+    def encrypt_rot13(self) -> dict:
+        rot13 = 13
         encrypted = ""
         plain_text = input(
-            'test encrypt_rot13: ')  # mozliwe, ze bd musial to zmienic i dodawac w self bo koliduje z zapisywaniem plikow
+            'test encrypt_rot13: ')
         for i in range(len(plain_text)):
             if plain_text[i] == " ":
                 encrypted += " "
             elif plain_text[i].isupper():
-                encrypted += chr((ord(plain_text[i]) + ROT13 - 65) % 26 + 65)
+                encrypted += chr((ord(plain_text[i]) + rot13 - 65) % 26 + 65)
             else:
-                encrypted += chr((ord(plain_text[i]) + ROT13 - 97) % 26 + 97)
-        self.cipher_text = encrypted
-        return self.cipher_text  # a jakby tak zrobic string zamiast list i za kazdym razem jak chce user w menu dodasc nastepny yo sie zamienia. bo jak appendujesz do listy to gorzej
+                encrypted += chr((ord(plain_text[i]) + rot13 - 97) % 26 + 97)
+        self.cipher_text['name'], self.cipher_text['status'], self.cipher_text['rot'] = encrypted, 'encrypted', 'ROT13'
+        return self.test
 
     def encrypt_rot47(self) -> None:
         ROT47 = 47
@@ -37,13 +37,13 @@ class Cipher:
 
     def decrypt_rot13(self) -> str:
         alphabet = string.ascii_lowercase
-        ROT13 = 13
+        rot13 = 13
         decrypted = ""
         cipher_text = input('test decrypt_rot13: ')
         for char in cipher_text.lower():
             if char in alphabet:
                 position = alphabet.find(char)
-                new_pos = (position - ROT13) % 26
+                new_pos = (position - rot13) % 26
                 new_char = alphabet[new_pos]
                 decrypted += new_char
             else:
@@ -67,8 +67,16 @@ class Cipher:
         return decrypted
 
 
-class FileHandler:
-    pass
+class FileHandler(Cipher):
+    def __init__(self):
+        super().__init__()
+
+    def get_input(self):
+        d = {}
+        name = input('name of file: ')
+        cipher = self.cipher_text
+        d.setdefault(name, cipher)
+        d['status']
 
 
 class Buffer(Cipher):
@@ -85,7 +93,7 @@ class Buffer(Cipher):
         return self.additional_options.get(choice)()
 
     def print_text(self):
-        print(self.cipher_text)
+        print(self.test['name'])
 
 
 class Menu:
@@ -127,12 +135,15 @@ class Manager:
 def main():
     manager = Manager()
     menu = Menu()
+    file = FileHandler()
+    # file.get_input()
 
     x = manager.start()  # while true petla z opcjami
     if x == 1:
         manager.options_encrypted()
     elif x == 3:
         manager.options_encrypted()
+
     # manager.options_encrypted()
 
 
