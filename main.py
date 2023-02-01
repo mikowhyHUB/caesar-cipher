@@ -71,17 +71,21 @@ class FileHandler(Cipher):
     def __init__(self):
         super().__init__()
 
-    def adding_name_to_cipher(self):
+    def adding_name_to_cipher(self) -> dict:
         name_text = input('How would you like to name this text: ')
         self.cipher_text[name_text] = self.cipher_text['name']
         del self.cipher_text['name']
-        return json.dumps(self.cipher_text, sort_keys=True, indent=4)
+        return self.cipher_text
 
     def saving_file(self):
         json_dict = self.adding_name_to_cipher()
-        with open('cipher.json', 'w') as outfile:
-            json.dump(json_dict, outfile)
+        with open('cipher.json', 'w', encoding='utf-8') as file:
+            json.dump(json_dict, file, sort_keys=True, ensure_ascii=False, indent=4)
             print('File saved. Returning to main menu')
+
+    def printing_file(self):
+        with open('cipher.json') as file:
+            print(json.load(file))
 
 
 class Buffer(Cipher):
@@ -122,13 +126,13 @@ class Manager:
         self.buffer = Buffer()
         self.menu = Menu()
 
-    def start(self):
+    def start(self) -> int:
         self.menu.welcome()
         choice = self.menu.show_menu()
         self.buffer.menu_choice(choice)
         return choice
 
-    def options_encrypted(self):
+    def options_encrypted(self) -> int:
         choice = self.menu.show_additional_options()
         self.buffer.additional_choice(choice)
         return choice
@@ -139,6 +143,7 @@ def main():
     menu = Menu()
     file = FileHandler()
     file.saving_file()
+    file.printing_file()
     # x = manager.start()  # while true petla z opcjami
     # if x == 1:
     #     manager.options_encrypted()
