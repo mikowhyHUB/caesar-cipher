@@ -92,8 +92,18 @@ class Buffer(Cipher):
     def __init__(self):
         super().__init__()
         self.menu = Menu()
-        self.menu_options = {1: self.encrypt_rot13, 3: self.decrypt_rot13}
-        self.additional_options = {1: self.print_text, 2: 'save to file'}
+        self.filefandler = FileHandler()
+        self.manager = Manager()
+        self.menu_options = {1: self.encrypt_rot13,
+                             2: self.encrypt_rot47,
+                             3: self.decrypt_rot13,
+                             4: self.decrypt_rot47,
+                             5: self.filefandler.printing_file,
+                             9: exit}
+        self.additional_options = {1: self.print_text,
+                                   2: self.filefandler.saving_file,
+                                   3: self.manager.start,
+                                   9: exit}
 
     def menu_choice(self, choice):
         return self.menu_options.get(choice)()
@@ -112,7 +122,7 @@ class Menu:
 
     def show_menu(self):
         return int(input(
-            'Options:\n1: Encrypt text with ROT13\n2: Encrypt text with ROT47\n3: Decrypt text with ROT13\n4: Decrypt text with ROT14\n5: Show all files 9: Exit program '))
+            'Options:\n1: Encrypt text with ROT13\n2: Encrypt text with ROT47\n3: Decrypt text with ROT13\n4: Decrypt text with ROT14\n5: Show saved file 9: Exit program '))
 
     def show_additional_options(self):
         return int(
@@ -140,10 +150,7 @@ class Manager:
 
 def main():
     manager = Manager()
-    menu = Menu()
-    file = FileHandler()
-    file.saving_file()
-    file.printing_file()
+
     # x = manager.start()  # while true petla z opcjami
     # if x == 1:
     #     manager.options_encrypted()
@@ -158,5 +165,6 @@ if __name__ == '__main__':
 
 '''Pytania:
 1. dlaczego w menu_options jak zrobię do metody () to się z automatu wywołuje nawet jak jej nie calluje
-2. Po co dziedziczyć skoro można w __init__ zrobić atrybut jako dana klasa i mamy te same metody dostępne 
+2. Po co dziedziczyć skoro można w __init__ zrobić atrybut jako dana klasa i mamy te same metody dostępne
+3. Czy tam gdzie pycharm mi podkresla by powinno byc staticmethod to robic staticmethod?
 3. Jaki jest proces twórczy osoby doświadczonej. Co po kolei robi'''
