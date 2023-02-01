@@ -71,19 +71,17 @@ class FileHandler(Cipher):
     def __init__(self):
         super().__init__()
 
-    def saving_file(self):
-        name_of_file = input('How would you like to name this text: ')
-        self.cipher_text[name_of_file] = self.cipher_text['name']
+    def adding_name_to_cipher(self):
+        name_text = input('How would you like to name this text: ')
+        self.cipher_text[name_text] = self.cipher_text['name']
         del self.cipher_text['name']
-        x = json.dumps(self.cipher_text, indent=4)
-        print(x)
+        return json.dumps(self.cipher_text, sort_keys=True, indent=4)
 
-    # def get_input(self):
-    #     d = {}
-    #     name = input('name of file: ')
-    #     cipher = self.cipher_text
-    #     d.setdefault(name, cipher)
-    #     d['status']
+    def saving_file(self):
+        json_dict = self.adding_name_to_cipher()
+        with open('cipher.json', 'w') as outfile:
+            json.dump(json_dict, outfile)
+            print('File saved. Returning to main menu')
 
 
 class Buffer(Cipher):
@@ -106,19 +104,16 @@ class Buffer(Cipher):
 class Menu:
 
     def welcome(self):
-        print('Welcome to Caesar Cipher')
+        print('Welcome to Caesar Cipher\nMain Menu:')
 
     def show_menu(self):
-        return int(input('Options 1: encrypt13, 2: encrypt47, 3: decrpt13, 4: decrypt14, 5: show files, 6: exit '))
+        return int(input(
+            'Options:\n1: Encrypt text with ROT13\n2: Encrypt text with ROT47\n3: Decrypt text with ROT13\n4: Decrypt text with ROT14\n5: Show all files 9: Exit program '))
 
     def show_additional_options(self):
         return int(
             input(
-                'What would you like to do with changed text: 1print, 2add another, 3save to file, 4 main menu, 4.quit...'))
-
-    # def show_decrypt_options(self):
-    #     return int(
-    #         input('What would you like to do with decrypted text: 1print, 2add another, 3save to file, 4 main menu, 4.quit...'))
+                'What would you like to do with changed text:\n1: Print\n2: Save to file\n4: Main menu\n5: Exit program'))
 
 
 class Manager:
