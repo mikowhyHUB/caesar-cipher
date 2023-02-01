@@ -94,16 +94,20 @@ class Buffer(Cipher):
         self.menu = Menu()
         self.filefandler = FileHandler()
         self.manager = Manager()
-        self.menu_options = {1: self.encrypt_rot13,
-                             2: self.encrypt_rot47,
-                             3: self.decrypt_rot13,
-                             4: self.decrypt_rot47,
-                             5: self.filefandler.printing_file,
-                             9: exit}
-        self.additional_options = {1: self.print_text,
-                                   2: self.filefandler.saving_file,
-                                   3: self.manager.start,
-                                   9: exit}
+        self.menu_options = {
+            1: self.encrypt_rot13,
+            2: self.encrypt_rot47,
+            3: self.decrypt_rot13,
+            4: self.decrypt_rot47,
+            5: self.filefandler.printing_file,
+            9: exit
+        }
+        self.additional_options = {
+            1: self.print_text,
+            2: self.filefandler.saving_file,
+            3: self.manager.start,
+            9: exit
+        }
 
     def menu_choice(self, choice):
         return self.menu_options.get(choice)()
