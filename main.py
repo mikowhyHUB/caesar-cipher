@@ -11,7 +11,6 @@ def main():
             sleep(1)
             manager.additional_menu()
             sleep(1)
-            sadasdad
 
 
 if __name__ == "__main__":
