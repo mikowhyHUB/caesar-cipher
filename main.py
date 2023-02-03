@@ -5,12 +5,11 @@ from manager import Manager
 def main():
     manager = Manager()
     while True:
-
         start = manager.main_menu()
         if start in [1, 2, 3, 4]:
-            time.sleep(1)
+            sleep(1)
             manager.additional_menu()
-            time.sleep(1)
+            sleep(1)
 
 
 if __name__ == "__main__":
