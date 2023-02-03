@@ -3,7 +3,6 @@ from buffer import buffer1
 
 
 class Manager(Menu):
-
     def __init__(self):
         super().__init__()
         self.menu_options = {
@@ -12,13 +11,13 @@ class Manager(Menu):
             3: self.decrypt_rot13,
             4: self.decrypt_rot47,
             5: self.printing_file,
-            9: self.exit_program
+            9: self.exit_program,
         }
         self.additional_options = {
             1: self.print_text,
             2: self.saving_file,
             3: self.main_menu,
-            9: self.exit_program
+            9: self.exit_program,
         }
 
     def menu_choice(self, choice):
@@ -28,14 +27,13 @@ class Manager(Menu):
         return self.additional_options.get(choice)()
 
     def print_text(self):
-        print(f'\nChanged text: {buffer1.name}\n')
-        print('Returning to main menu')
+        print(f"\nChanged text: {buffer1.name}\n")
+        print("Returning to main menu")
 
     def exit_program(self):
         quit()
 
     def main_menu(self) -> int:
-        self.welcome()
         choice = self.show_menu()
         self.menu_choice(choice)
         return choice
