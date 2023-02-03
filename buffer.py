@@ -4,10 +4,11 @@ class Buffer:
     # cipher:str
     # status:str
     # rot:str
-    def __init__(self, name=None, status=None, rot=None) -> None:
+    def __init__(self, name: str = None, status: str = None, rot: str = None) -> None:
+        """Cipher object"""
         self.name = name
         self.status = status
         self.rot = rot
 
 
-buffer1 = Buffer()  # czy tak ok?
+buffer1 = Buffer()  # tutaj czy w mainie
