@@ -22,4 +22,5 @@ if __name__ == "__main__":
 3. Czy tam gdzie pycharm mi podkresla by powinno byc staticmethod to robic staticmethod?
 4. odnośnie branchy. Jak zmerdżuje z mainem to usuwać branch?
 5. czy kolenosc metod w klasie jest wazna dla czytelnosci kodu?
-6. Jaki jest proces twórczy osoby doświadczonej. Co po kolei robi"""
+6. dict z możliwościami wyboru w managerze ograniczał mnie, bo nie mogłem podawać argumentów do metod. jest na to sposób?
+7. Jaki jest proces twórczy osoby doświadczonej. Co po kolei robi"""
