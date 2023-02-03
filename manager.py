@@ -7,7 +7,8 @@ class Manager(Menu):
     """Class handling all choices made by user in menu"""
 
     def __init__(self) -> None:
-        super().__init__()
+        super().__init__()  # dlaczego jak zrobię do metody () to się z automatu wywołuje nawet jak jej nie calluje
+        # drugie pytanie: dict z możliwościami wyboru w managerze ograniczał mnie, bo nie mogłem podawać argumentów do metod. jest na to sposób? Czy tak jak zrobiłem w cipher jest ok?
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_rot13,
             2: self.encrypt_rot47,
