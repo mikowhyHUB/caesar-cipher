@@ -1,5 +1,7 @@
 # @dataclass czy można dodać deafult parametr?
 class Buffer:
+    """Class storing cipher text"""
+
     # name:str
     # cipher:str
     # status:str
