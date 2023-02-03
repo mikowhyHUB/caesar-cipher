@@ -1,5 +1,6 @@
 from menu import Menu
 from buffer import buffer1
+from exceptions import Exceptions
 from typing import Optional, Callable, Dict
 
 
@@ -9,6 +10,7 @@ class Manager(Menu):
     def __init__(self) -> None:
         super().__init__()  # dlaczego jak zrobię do metody () to się z automatu wywołuje nawet jak jej nie calluje
         # drugie pytanie: dict z możliwościami wyboru w managerze ograniczał mnie, bo nie mogłem podawać argumentów do metod. jest na to sposób? Czy tak jak zrobiłem w cipher jest ok?
+        self.exceptions = Exceptions
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_rot13,
             2: self.encrypt_rot47,
@@ -20,21 +22,17 @@ class Manager(Menu):
         self.additional_options: Dict[int, Callable] = {
             1: self.print_text,
             2: self.save_file,
-            3: self.main_menu,
+            3: self.main_menu,  # do sprawdzenia
             9: self.exit_program,
         }
 
     def menu_choice(self, choice: int) -> None:
         """Choosing option what user made in main menu"""
-        self.menu_options.get(choice, self.default_choice)()
+        self.menu_options.get(choice, self.wrong_number)()
 
     def additional_choice(self, choice: int) -> None:
         """Choosing option what user made in additional menu"""
-        self.additional_options.get(choice, self.default_choice)()
-
-    def default_choice(self) -> None:
-        """Handles invalid menu choices"""
-        print("Invalid choice. Please try again.")
+        self.additional_options.get(choice, self.wrong_number)()
 
     def print_text(self) -> None:
         """Printing users encrypted/decrypted text"""
@@ -55,3 +53,7 @@ class Manager(Menu):
         choice = self.show_additional_options()
         self.additional_choice(choice)
         return choice
+
+    def wrong_number(self) -> None:
+        """Handles invalid menu choices"""
+        print("Invalid choice. Please try again.")

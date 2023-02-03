@@ -34,8 +34,16 @@ class Menu(FileHandler):
     def show_menu(self) -> int:
         """Printing main menu options"""
         self.intro()  # 6: decrypt from file
-        return int(input(self._menu_options))
+        while True:
+            try:
+                return int(input(self._menu_options))
+            except ValueError:
+                print("You have entered invalid value. Try again.")
 
     def show_additional_options(self) -> int:
         """Printing additional menu options"""
-        return int(input(self._additional_options))
+        while True:
+            try:
+                return int(input(self._additional_options))
+            except ValueError:
+                print("You have entered invalid value. Try again.")
