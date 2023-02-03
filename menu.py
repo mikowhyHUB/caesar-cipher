@@ -23,7 +23,7 @@ class Menu(FileHandler):
             "What would you like to do with changed text:\n"
             "1: Print\n"
             "2: Save to file\n"
-            "4: Main menu\n"
+            "3: Main menu\n"
             "9: Exit program\n"
         )
 
@@ -33,7 +33,7 @@ class Menu(FileHandler):
 
     def show_menu(self) -> int:
         """Printing main menu options"""
-        self.intro()  # 6: decrypt from file
+        self.intro()
         while True:
             try:
                 return int(input(self._menu_options))
