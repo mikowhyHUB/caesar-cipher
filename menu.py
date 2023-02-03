@@ -2,6 +2,8 @@ from filehandler import FileHandler
 
 
 class Menu(FileHandler):
+    """Class printing options to terminal for user"""
+
     def intro(self) -> None:
         print("\nWelcome to Caesar Cipher\n")
 
