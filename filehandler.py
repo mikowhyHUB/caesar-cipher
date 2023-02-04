@@ -1,6 +1,8 @@
 import json
 from cipher import Cipher
-from buffer import buffer1
+
+
+# from buffer import buffer1
 
 
 class FileHandler(Cipher):

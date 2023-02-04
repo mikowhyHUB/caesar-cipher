@@ -1,10 +1,4 @@
-from filehandler import FileHandler
-
-
-# niby nie potrzebuje tutaj nic z poprzednich klass, ale to mój sposób by nie było wielodziedziczenia w managerze
-
-
-class Menu(FileHandler):
+class Menu:
     """Class responsible for printing options to terminal for user"""
 
     def __init__(self) -> None:
