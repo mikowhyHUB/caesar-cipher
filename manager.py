@@ -2,9 +2,14 @@ from menu import Menu
 from buffer import buffer1
 from exceptions import Exceptions
 from typing import Optional, Callable, Dict
+from cipher import Cipher
+import main
+from buffer import Buffer
+
+ROTS = [13, 47]
 
 
-class Manager(Menu):
+class Manager:
     """Class handling all choices made by user in menu"""
 
     def __init__(self) -> None:
@@ -22,11 +27,28 @@ class Manager(Menu):
         self.additional_options: Dict[int, Callable] = {
             1: self.print_text,
             2: self.save_file,
-            3: self.main_menu,  # do sprawdzenia
+            3: self.main_menu,
             9: self.exit_program,
         }
+        main.Buffer()
 
-    def menu_choice(self, choice: int) -> None:
+    def set_rot(self):
+        rot = 0
+        while rot not in ROTS:  # zabezpiecznie od złych inputow
+            print("Available rots: {ROTS}")
+            rot = int(input("Chose ROT 13/47"))
+        self.rot = rot
+        return self.rot
+
+    def set_text(self):
+        self.text = input("What text would you like to change: ")
+        return self.text
+
+    def encrypt_text(self):
+        cipher = Cipher(self.rot, self.text)
+        cipher.encrypt()
+
+    def menu_choice(self, choice: int) -> None:  # sprobowac z  match -> switch keys
         """Choosing option what user made in main menu"""
         self.menu_options.get(choice, self.wrong_number)()
 
@@ -50,7 +72,7 @@ class Manager(Menu):
 
     def additional_menu(self) -> Optional[int]:
         """Showing options what user can do with encrypted/decrypted text"""
-        choice = self.show_additional_options()
+        choice = self.menu.show_additional_options()
         self.additional_choice(choice)
         return choice
 
