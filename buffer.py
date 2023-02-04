@@ -8,7 +8,7 @@ class Buffer:
     """Class storing cipher text"""
 
     def __init__(self):
-        self.buffer = []
+        self.memory = []
 
     # def peak_buffer(self):
     #     pass
@@ -18,13 +18,7 @@ class Buffer:
     #         pass
 
 
-class Text:
-    """Class storing cipher text"""
-
-    # name: str = None
-    # status: str = None
-    # rot: str = None
-
+class Test:
     def __init__(self, name: str = None, status: str = None, rot: str = None) -> None:
         """Text object"""
         self.name = name
@@ -32,7 +26,7 @@ class Text:
         self.rot = rot
         self.created_at = datetime.now()
 
-    # def to_dct(self):
-    #     return {'name': }
+    def to_dct(self, status, rot):
+        return {"name": input("test name dict: "), "status": status, "rot": rot}
 
     # -> buffer = ['text', text2, text3] {'name': 'xyz', 'rot': 13}
