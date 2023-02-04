@@ -5,11 +5,11 @@ from cipher import Cipher
 # from buffer import buffer1
 
 
-class FileHandler(Cipher):
+class FileHandler:
     """Class operating on Buffer object"""
 
+    # TO DO możliwe, że fileHandler będzie mógł nie posiadać obiektu.
     def __init__(self) -> None:
-        super().__init__()
         self._json_dict: dict = {}
 
     def name_the_cipher(self) -> None:
@@ -23,7 +23,9 @@ class FileHandler(Cipher):
         self._json_dict["status"] = buffer1.status
         self._json_dict["rot"] = buffer1.rot
 
-    def save_file(self) -> None:
+    def save_file(
+        self,
+    ) -> None:  # data) -> None:
         """Saving to JSON file"""
         self.prepare_dict()
         with open("cipher.json", "w", encoding="utf-8") as cipher:
