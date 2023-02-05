@@ -15,7 +15,7 @@ class Manager:
         self.buffer = Buffer()
         self.filehandler = FileHandler()
         self.text_name = TextName()
-        self.rot = 0
+        self.rot = 0  # pomysl by to zamioenic na obiekt TeXtName. tak samo status
         self.status = ""
 
         self.menu_options: Dict[int, Callable] = {
@@ -46,10 +46,18 @@ class Manager:
 
     @staticmethod
     def set_name():
-        return input("name it: ")
+        return input("Name of your text: ")
 
     def set_text_name(self):
         self.text_name = TextName(self.set_name(), self.status, self.rot)
+
+    def print_text(self) -> None:
+        """Printing users encrypted/decrypted text"""
+        self.text_name.to_dct(
+            self.text_name.name, self.text_name.status, self.text_name.rot
+        )
+        print(f"\nChanged text: {'DO WLOZENIA'}\n")
+        print("Returning to main menu")
 
     def encrypt_text(self):
         if self.rot == 0:
@@ -91,11 +99,6 @@ class Manager:
         choice = self.menu.show_additional_options()
         self.additional_choice(choice)
         return choice
-
-    def print_text(self) -> None:
-        """Printing users encrypted/decrypted text"""
-        print(f"\nChanged text: {'DO WLOZENIA'}\n")
-        print("Returning to main menu")
 
     def wrong_number(self) -> None:
         """Handles invalid menu choices"""
