@@ -1,11 +1,8 @@
-from dataclasses import dataclass
 from datetime import datetime
-
-""" chodzilo o to, zeby user mogl dodawac do buffera wiele slow/ zdan encrypted. i wtedsy moze sobie je zapisac """
 
 
 class Buffer:
-    """Class storing cipher text"""
+    """Class storing list of cipher text"""
 
     def __init__(self):
         self.memory = []
@@ -26,7 +23,7 @@ class TextName:
         self.rot = rot
         self.created_at = datetime.now()
 
-    def to_dct(self, status, rot):
-        return {"name": input("test name dict: "), "status": status, "rot": rot}
+    def to_dct(self, name, status, rot):
+        return {"name": name, "status": status, "rot": rot}
 
     # -> buffer = ['text', text2, text3] {'name': 'xyz','status:'encrypted' 'rot': 13}
