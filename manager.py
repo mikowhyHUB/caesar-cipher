@@ -1,5 +1,5 @@
 from menu import Menu
-from typing import Optional, Callable, Dict
+from typing import Optional, Callable, Dict, Any
 from cipher import Cipher
 from buffer import Buffer, Text
 from filehandler import FileHandler
@@ -11,10 +11,10 @@ class Manager:
     """Class handling all choices made by user in menu"""
 
     def __init__(self) -> None:
-        self.menu = Menu()
-        self.buffer = Buffer()
-        self.filehandler = FileHandler()
-        self.text = Text()
+        self.menu: Any = Menu()
+        self.buffer: Any = Buffer()
+        self.filehandler: Any = FileHandler()
+        self.text: Any = Text()
         self.rot = 0  # pomysl by to zamioenic na obiekt TeXtName. tak samo status
         self.status = ""
 
@@ -56,8 +56,8 @@ class Manager:
         dct = self.text.to_dct(
             self.text.name, self.buffer.memory, self.text.status, self.text.rot
         )
-        print(f"\nChanged text: {dct}\n")
-        print("Returning to main menu")
+        print(f"\nChanged text: {dct[self.text.name]}\n")
+        print("Returning to main men\n")
 
     def encrypt_text(self):
         if self.rot == 0:
@@ -70,15 +70,19 @@ class Manager:
             self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
 
     def decrypt_text(self):
-        cipher = Cipher(self.set_rot(), self.set_text())
-        self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
-        self.set_text_class()
+        if self.rot == 0:
+            cipher = Cipher(self.set_rot(), self.set_text())
+            self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
+            self.status = "decrypted"
+            self.set_text_class()
+        else:
+            cipher = Cipher(self.rot, self.set_text())
+            self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
 
     def add_next_text(self):
         if self.status == "encrypted":
             self.encrypt_text()
-        else:
-            self.decrypt_text()
+        self.decrypt_text()
 
     def menu_choice(self, choice: int) -> None:  # sprobowac z  match -> switch keys
         """Choosing option what user made in main menu"""
