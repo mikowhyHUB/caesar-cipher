@@ -1,10 +1,3 @@
-import re
-from buffer import Buffer
-from typing import Pattern
-import string
-from abc import ABC, abstractmethod
-
-
 class Cipher:
     """Class for cipher users text"""
 
@@ -44,3 +37,7 @@ class Cipher:
             else:
                 decrypted += chr((ord(char) - rot - 97 + 26) % 26 + 97)
         return decrypted
+
+
+c = Cipher(13, "alaasd")
+print(c.encrypt(c.rot, c.text))

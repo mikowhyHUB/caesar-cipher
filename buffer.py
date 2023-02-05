@@ -18,8 +18,8 @@ class Buffer:
     #         pass
 
 
-class Test:
-    def __init__(self, name: str = None, status: str = None, rot: str = None) -> None:
+class TextName:
+    def __init__(self, name: str = None, status: str = None, rot: int = None) -> None:
         """Text object"""
         self.name = name
         self.status = status
@@ -29,4 +29,4 @@ class Test:
     def to_dct(self, status, rot):
         return {"name": input("test name dict: "), "status": status, "rot": rot}
 
-    # -> buffer = ['text', text2, text3] {'name': 'xyz', 'rot': 13}
+    # -> buffer = ['text', text2, text3] {'name': 'xyz','status:'encrypted' 'rot': 13}
