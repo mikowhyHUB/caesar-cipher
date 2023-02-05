@@ -30,7 +30,7 @@ class Menu:
         Menu.intro()
         while True:
             try:
-                return int(input(Menu.ADDITIONAL_OPTIONS))
+                return int(input(Menu.MENU_OPTIONS))
             except ValueError:
                 print("You have entered invalid value. Try again.")
 

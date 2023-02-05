@@ -1,13 +1,12 @@
 from time import sleep
 from manager import Manager
-from buffer import Buffer
 
 
 def main():
     manager = Manager()
     while True:
         start = manager.main_menu()
-        if start in [1, 2, 3, 4]:
+        if start in [1, 2]:
             sleep(1)
             manager.additional_menu()
             sleep(1)
