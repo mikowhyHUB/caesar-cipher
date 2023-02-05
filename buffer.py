@@ -18,7 +18,7 @@ class Buffer:
     #         pass
 
 
-class Test:
+class TextName:
     def __init__(self, name: str = None, status: str = None, rot: int = None) -> None:
         """Text object"""
         self.name = name

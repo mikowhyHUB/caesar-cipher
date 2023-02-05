@@ -4,18 +4,17 @@ class Menu:
     INTRO_TEXT: str = "\nWelcome to Caesar Cipher\n"
     MENU_OPTIONS: str = (
         "Options:\n"
-        "1: Encrypt text with ROT13\n"
-        "2: Encrypt text with ROT47\n"
-        "3: Decrypt text with ROT13\n"
-        "4: Decrypt text with ROT47\n"
-        "5: Show saved file\n"
+        "1: Encrypt text\n"
+        "2: Decrypt text\n"
+        "3: Show saved file\n"
         "9: Exit program\n"
     )
     ADDITIONAL_OPTIONS: str = (
         "What would you like to do with changed text:\n"
         "1: Print\n"
-        "2: Save to file\n"
-        "3: Main menu\n"
+        "2: Add next text"
+        "3: Save to file\n"
+        "4: Main menu\n"
         "9: Exit program\n"
     )
 

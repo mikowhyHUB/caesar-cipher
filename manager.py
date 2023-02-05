@@ -1,7 +1,7 @@
 from menu import Menu
 from typing import Optional, Callable, Dict
 from cipher import Cipher
-from buffer import Buffer, Test
+from buffer import Buffer, TextName
 from filehandler import FileHandler
 
 ROTS = [13, 47]
@@ -14,10 +14,9 @@ class Manager:
         self.menu = Menu()
         self.buffer = Buffer()
         self.filehandler = FileHandler()
-        self.test = self.set_test
+        self.text_name = TextName()
         self.rot = 0
-        self.text = ""
-        self.name = 'input("name it bitch: ")'
+        self.status = ""
 
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_text,
@@ -37,36 +36,41 @@ class Manager:
         rot = 0
         while rot not in ROTS:  # zabezpiecznie od złych inputow
             print(f"Available rots: {ROTS}")
-            rot = int(input())
+            rot = int(input())  # zabezpieczyc przed valueerr
         self.rot = rot
         return rot
 
     def set_text(self):
         text = input(f"What text would you like to change with ROT{self.rot}: ")
-        self.text = text
         return text
 
-    # def set_name(self):
-    #     self.name = input("name it: ")
-    #     return self.name
+    @staticmethod
+    def set_name():
+        return input("name it: ")
 
-    def set_test(self):
-        xyz = Test(input("asd"), "DO WYKOMBINOWANIA", rotu)
-        return xyz
+    def set_text_name(self):
+        self.text_name = TextName(self.set_name(), self.status, self.rot)
 
     def encrypt_text(self):
-        cipher = Cipher(self.set_rot(), self.set_text())
-        self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
-        print(self.buffer.memory)
+        if self.rot == 0:
+            cipher = Cipher(self.set_rot(), self.set_text())
+            self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
+            self.status = "encrypted"
+            self.set_text_name()
+        else:
+            cipher = Cipher(self.rot, self.set_text())
+            self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
 
     def decrypt_text(self):
         cipher = Cipher(self.set_rot(), self.set_text())
         self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
-        self.set_test()
+        self.set_text_name()
 
     def add_next_text(self):
-        if self.test.status == "encrypted":
-            self.encrypt_text()  # DO PRZETESTOWANIA. PYTANIE CZY BEDA TE SAME USTAWIENIA ROTA(RACZEJ NIE)
+        if self.status == "encrypted":
+            self.encrypt_text()
+        else:
+            self.decrypt_text()
 
     def menu_choice(self, choice: int) -> None:  # sprobowac z  match -> switch keys
         """Choosing option what user made in main menu"""
