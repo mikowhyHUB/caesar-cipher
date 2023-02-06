@@ -2,6 +2,7 @@ from menu import Menu
 from typing import Optional, Callable, Dict, Any
 from cipher import Cipher
 from buffer import Buffer, Text
+
 from filehandler import FileHandler
 
 ROTS = [13, 47]
@@ -15,20 +16,20 @@ class Manager:
         self.buffer: Any = Buffer()
         self.filehandler: Any = FileHandler()
         self.text: Any = Text()
-        self.rot = 0  # pomysl by to zamioenic na obiekt TeXtName. tak samo status
-        self.status = ""
+        self.cipher_dict = {}
 
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_text,
             2: self.decrypt_text,
-            3: self.print_text,
+            3: self.filehandler.print_file,
             9: self.exit_program,
         }
         self.additional_options: Dict[int, Callable] = {
             1: self.print_text,
             2: self.add_next_text,
-            3: self.filehandler.save_file,
-            4: self.main_menu,
+            3: self.save_to_json,
+            4: self.filehandler.print_file,
+            5: self.menu.show_menu,
             9: self.exit_program,
         }
 
@@ -37,52 +38,56 @@ class Manager:
         while rot not in ROTS:
             print(f"Available rots: {ROTS}")
             rot = int(input())  # zabezpieczyc przed valueerr
-        self.rot = rot
+        self.text.rot = rot
         return rot
 
+    def save_to_json(self):
+        self.filehandler.save_file(
+            self.text.to_dct(
+                self.text.name, self.buffer.memory, self.text.status, self.text.rot
+            )
+        )
+
     def set_text(self):
-        text = input(f"What text would you like to change with ROT{self.rot}: ")
-        return text
+        return input(f"What text would you like to change with ROT{self.text.rot}: ")
 
-    @staticmethod
-    def set_name():
-        return input("Name of your text: ")
-
-    def set_text_class(self):
-        self.text = Text(self.set_name(), self.status, self.rot)
+    def set_text_name(self):
+        self.text.name = input("Name of your text: ")
 
     def print_text(self) -> None:
         """Printing users encrypted/decrypted text"""
-        dct = self.text.to_dct(
+        self.cipher_dict = self.text.to_dct(
             self.text.name, self.buffer.memory, self.text.status, self.text.rot
         )
-        print(f"\nChanged text: {dct[self.text.name]}\n")
-        print("Returning to main men\n")
+        for key, value in self.cipher_dict.items():
+            print(f"{key} : {value}")
+        print("\nReturning to main men\n")
 
     def encrypt_text(self):
-        if self.rot == 0:
+        if self.text.rot is None:
             cipher = Cipher(self.set_rot(), self.set_text())
             self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
-            self.status = "encrypted"
-            self.set_text_class()
+            self.text.status = "encrypted"
+            self.set_text_name()
         else:
-            cipher = Cipher(self.rot, self.set_text())
+            cipher = Cipher(self.text.rot, self.set_text())
             self.buffer.memory.append(cipher.encrypt(cipher.rot, cipher.text))
 
     def decrypt_text(self):
-        if self.rot == 0:
+        if self.text.rot is None:
             cipher = Cipher(self.set_rot(), self.set_text())
             self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
-            self.status = "decrypted"
-            self.set_text_class()
+            self.text.status = "decrypted"
+            self.set_text_name()
         else:
-            cipher = Cipher(self.rot, self.set_text())
+            cipher = Cipher(self.text.rot, self.set_text())
             self.buffer.memory.append(cipher.decrypt(cipher.rot, cipher.text))
 
     def add_next_text(self):
-        if self.status == "encrypted":
+        if self.text.status is "encrypted":
             self.encrypt_text()
-        self.decrypt_text()
+        else:
+            self.decrypt_text()
 
     def menu_choice(self, choice: int) -> None:  # sprobowac z  match -> switch keys
         """Choosing option what user made in main menu"""
