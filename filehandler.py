@@ -17,5 +17,5 @@ class FileHandler:
         try:
             with open("cipher.json") as cipher:
                 print(json.load(cipher))
-        except ValueError:
-            print("There is no file.")
+        except FileNotFoundError:
+            print("There is no file.\nReturning to main menu\n")

@@ -28,7 +28,8 @@ class Manager:
             1: self.print_text,
             2: self.add_next_text,
             3: self.save_to_json,
-            4: self.main_menu,
+            4: self.filehandler.print_file,
+            5: self.menu.show_menu,
             9: self.exit_program,
         }
 
@@ -41,7 +42,11 @@ class Manager:
         return rot
 
     def save_to_json(self):
-        self.filehandler.save_to_json(self.cipher_dict)
+        self.filehandler.save_file(
+            self.text.to_dct(
+                self.text.name, self.buffer.memory, self.text.status, self.text.rot
+            )
+        )
 
     def set_text(self):
         return input(f"What text would you like to change with ROT{self.text.rot}: ")

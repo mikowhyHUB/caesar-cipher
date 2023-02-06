@@ -10,7 +10,7 @@ class Menu:
         "9: Exit program\n"
     )
     ADDITIONAL_OPTIONS: str = (
-        "What would you like to do with changed text:\n"
+        "\nWhat would you like to do with changed text:\n"
         "1: Print\n"
         "2: Add next text\n"
         "3: Save to file\n"
