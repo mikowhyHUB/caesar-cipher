@@ -12,9 +12,10 @@ class Menu:
     ADDITIONAL_OPTIONS: str = (
         "What would you like to do with changed text:\n"
         "1: Print\n"
-        "2: Add next text"
+        "2: Add next text\n"
         "3: Save to file\n"
-        "4: Main menu\n"
+        "4: Show saved file\n"
+        "5: Main menu\n"
         "9: Exit program\n"
     )
 

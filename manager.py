@@ -3,7 +3,7 @@ from typing import Optional, Callable, Dict, Any
 from cipher import Cipher
 from buffer import Buffer, Text
 
-# from filehandler import FileHandler
+from filehandler import FileHandler
 
 ROTS = [13, 47]
 
@@ -14,20 +14,20 @@ class Manager:
     def __init__(self) -> None:
         self.menu: Any = Menu()
         self.buffer: Any = Buffer()
-        # self.filehandler: Any = FileHandler()
+        self.filehandler: Any = FileHandler()
         self.text: Any = Text()
         self.cipher_dict = {}
 
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_text,
             2: self.decrypt_text,
-            3: self.print_text,
+            3: self.filehandler.print_file,
             9: self.exit_program,
         }
         self.additional_options: Dict[int, Callable] = {
             1: self.print_text,
             2: self.add_next_text,
-            3: "self.filehandler.save_file",
+            3: self.save_to_json,
             4: self.main_menu,
             9: self.exit_program,
         }
@@ -39,6 +39,9 @@ class Manager:
             rot = int(input())  # zabezpieczyc przed valueerr
         self.text.rot = rot
         return rot
+
+    def save_to_json(self):
+        self.filehandler.save_to_json(self.cipher_dict)
 
     def set_text(self):
         return input(f"What text would you like to change with ROT{self.text.rot}: ")
