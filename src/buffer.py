@@ -16,14 +16,11 @@ class Text:
         self.rot = rot
         self.DT_STRING: str = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
-    def set_time_now(self):
-        return self.DT_STRING
-
     def to_dct(self, name: str, memory: str, status: str, rot: int):
         """Changing Text object to dict"""
         return {
             name: memory,
-            "created": self.set_time_now,
+            "created": self.DT_STRING,
             "status": status,
             "rot": rot,
         }
