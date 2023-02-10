@@ -119,10 +119,10 @@ class Manager:
         return choice
 
     @staticmethod
-    def wrong_number(self) -> None:
+    def wrong_number() -> None:
         """Handles invalid menu choices"""
         print("Invalid choice. Please try again.")
 
     @staticmethod
-    def exit_program(self) -> None:
+    def exit_program() -> None:
         quit()
