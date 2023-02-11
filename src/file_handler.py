@@ -3,11 +3,14 @@ import json
 
 class FileHandler:
     """Class operating changed text with JSON"""
+    test = {1: 'asd', 2: 'sss'}
 
     @staticmethod
-    def save_file(cipher_dict: dict) -> None:
+    def save_file(cipher_dict=None) -> None:
         """Saving to JSON file"""
-        with open("../cipher.json", "w", encoding="utf-8") as cipher:
+        if cipher_dict is None:
+            cipher_dict = {}
+        with open("./cipher.json", "w", encoding="utf-8") as cipher:
             json.dump(cipher_dict, cipher, ensure_ascii=False, indent=4)
             print("File saved. Returning to main menu")
 
@@ -15,17 +18,13 @@ class FileHandler:
     def print_file() -> None:
         """Showing saved file on terminal"""
         try:
-            with open("../cipher.json") as cipher:
+            with open("./cipher.json") as cipher:
                 print(json.load(cipher))
         except FileNotFoundError:
             print("There is no file.\nReturning to main menu\n")
 
     # def save_to_json(self) -> None:
     #     """Saving JSON file"""
-    #     x = Manager()
-    #
-    #     self.filehandler.save_file(
-    #         self.text.to_dct(
-    #             self.text.name, self.buffer.memory, self.text.status, self.text.rot
-    #         )
-    #     )
+    #     buffer = Buffer()
+    #     buffer.text.to_dct(buffer.text.name, buffer.text.memory, buffer.text.status, buffer.text.rot)
+    #     self.save_file(buffer.text.dic)

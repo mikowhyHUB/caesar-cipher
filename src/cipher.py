@@ -1,16 +1,19 @@
+from typing import Any
+
+
 class Cipher:
     """Class for cipher users text"""
 
-    def __init__(
-        self,
-        rot: int,
-        text: str,
-    ) -> None:
-        self.rot = rot
-        self.text = text
+    # def __init__(
+    #         self,
+    #         rot: None,
+    #         text: str,
+    # ) -> None:
+    #     self.rot = rot
+    #     self.text = text
 
     @staticmethod
-    def encrypt(rot: int, plain_text: str) -> str:
+    def encrypt(rot: Any, plain_text: str) -> str:
         """Encrypting users text with ROT13 or ROT47 method"""
         encrypted: str = ""
         for char in plain_text:
@@ -26,7 +29,7 @@ class Cipher:
         return encrypted
 
     @staticmethod
-    def decrypt(rot: int, cipher_text: str) -> str:
+    def decrypt(rot: Any, cipher_text: str) -> str:
         """Decrypting users text with ROT13 or ROT47 method"""
         decrypted: str = ""
         for char in cipher_text:
