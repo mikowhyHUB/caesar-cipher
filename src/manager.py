@@ -14,7 +14,7 @@ class Manager:
         self.menu: Any = Menu()
         self.buffer: Any = Buffer()
         self.filehandler: Any = FileHandler()
-        self.cipher = Cipher()
+        self.cipher: Any = Cipher()
 
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_text,
@@ -38,7 +38,6 @@ class Manager:
             self.buffer.text.status = "encrypted"
             self.set_text_name()
         else:
-            print('ssssssssssss')
             self.buffer.text.memory.append(self.cipher.encrypt(self.buffer.text.rot, self.set_text()))
 
     def decrypt_text(self) -> None:
@@ -50,13 +49,14 @@ class Manager:
         else:
             self.buffer.text.memory.append(self.cipher.decrypt(self.buffer.text.rot, self.set_text()))
 
-    def user_choice_rot(self):
+    def user_choice_rot(self) -> None:
+        '''User pick what ROT would he like to use'''
         try:
             self.buffer.text.rot = int(input("ROT:"))
         except ValueError:
             print(f"Type only {ROTS} numbers")
 
-    def set_rot(self) -> None:
+    def set_rot(self) -> Optional[int]:
         """Setting what ROT user want to use"""
         while self.buffer.text.rot not in ROTS:
             print(f"Available rots: {ROTS}")
