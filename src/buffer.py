@@ -16,11 +16,13 @@ class Text:
         self.name = name
         self.status = status
         self.rot = rot
+        self.memory: list = []
+        self.dic = {}
         self.DT_STRING: str = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
-    def to_dct(self, name: str, memory: str, status: str, rot: int):
+    def to_dct(self, name: str, memory: str, status: str, rot: int) -> None:
         """Changing Text object to dict"""
-        return {
+        self.dic = {
             name: memory,
             "created": self.DT_STRING,
             "status": status,
