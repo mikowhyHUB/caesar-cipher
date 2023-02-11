@@ -20,7 +20,7 @@ class Text:
         self.memory: list = []
         self.DT_STRING: str = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
 
-    def to_dct(self, name: str, memory: str, status: str, rot: int):
+    def to_dct(self, name: str, memory: str, status: str, rot: int) -> dict:
         """Changing Text object to dict"""
         return {
             name: memory,

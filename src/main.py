@@ -1,8 +1,8 @@
-from manager import Manager
+from manager import MenuManager
 
 
 def main():
-    manager = Manager()
+    manager = MenuManager()
     while True:
         start = manager.main_menu()
         if start in [1, 2]:

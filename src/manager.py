@@ -7,29 +7,12 @@ from file_handler import FileHandler
 ROTS = [13, 47]
 
 
-class Manager:
-    """Class handling all choices made by user in menu"""
+class TextManager:
+    """Class handling text operations"""
 
     def __init__(self) -> None:
-        self.menu: Any = Menu()
         self.buffer: Any = Buffer()
-        self.filehandler: Any = FileHandler()
         self.cipher: Any = Cipher()
-
-        self.menu_options: Dict[int, Callable] = {
-            1: self.encrypt_text,
-            2: self.decrypt_text,
-            3: self.filehandler.print_file,
-            9: self.exit_program,
-        }
-        self.additional_options: Dict[int, Callable] = {
-            1: self.print_text,
-            2: self.add_next_text,
-            3: self.save_to_json,
-            4: self.filehandler.print_file,
-            5: self.menu.show_menu,
-            9: self.exit_program,
-        }
 
     def encrypt_text(self) -> None:
         """Encrypting text with ROT 13/47"""
@@ -83,11 +66,36 @@ class Manager:
         print(self.buffer.text)
         print("\nReturning to main men\n")
 
+
+class MenuManager:
+    '''class handling menu operations'''
+
+    def __init__(self):
+        self.menu = Menu()
+        self.filehandler = FileHandler()
+        self.txt_man = TextManager()
+
+        self.menu_options: Dict[int, Callable] = {
+            1: self.txt_man.encrypt_text,
+            2: self.txt_man.decrypt_text,
+            3: self.filehandler.print_file,
+            9: self.exit_program,
+        }
+        self.additional_options: Dict[int, Callable] = {
+            1: self.txt_man.print_text,
+            2: self.txt_man.add_next_text,
+            3: self.save_to_json,
+            4: self.filehandler.print_file,
+            5: self.menu.show_menu,
+            9: self.exit_program,
+        }
+
     def save_to_json(self) -> None:
         """Saving JSON file"""
         self.filehandler.save_file(
-            self.buffer.text.to_dct(
-                self.buffer.text.name, self.buffer.text.memory, self.buffer.text.status, self.buffer.text.rot
+            self.txt_man.buffer.text.to_dct(
+                self.txt_man.buffer.text.name, self.txt_man.buffer.text.memory, self.txt_man.buffer.text.status,
+                self.txt_man.buffer.text.rot
             )
         )
 
