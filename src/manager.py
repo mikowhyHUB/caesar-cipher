@@ -76,18 +76,20 @@ class Manager:
 
     def add_next_text(self) -> None:
         """Adding next decrypted/encrypted text"""
-        if self.text.status is "encrypted":
+        if self.text.status == "encrypted":
             self.encrypt_text()
         else:
             self.decrypt_text()
 
     def print_text(self) -> None:
         """Printing users encrypted/decrypted text"""
-        self.cipher_dict = self.text.to_dct(
-            self.text.name, self.buffer.memory, self.text.status, self.text.rot
-        )
-        for key, value in self.cipher_dict.items():
-            print(f"{key} : {value}")
+        # self.cipher_dict = self.text.to_dct(
+        #     self.text.name, self.buffer.memory, self.text.status, self.text.rot
+        # )
+        # for key, value in self.cipher_dict.items():
+        #     print(f"{key} : {value}")
+        print(repr(self.text))
+        print(self.text)
         print("\nReturning to main men\n")
 
     def save_to_json(self) -> None:
