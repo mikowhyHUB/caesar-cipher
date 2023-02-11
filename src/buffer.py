@@ -1,10 +1,12 @@
 from datetime import datetime
 
 
+
 class Buffer:
     """Class storing list of cipher text"""
 
     def __init__(self):
+        self.text = Text()
         self.memory: list = []
 
 
