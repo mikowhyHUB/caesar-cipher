@@ -1,5 +1,4 @@
 import json
-from buffer import Buffer
 
 
 class FileHandler:
@@ -7,8 +6,10 @@ class FileHandler:
     test = {1: 'asd', 2: 'sss'}
 
     @staticmethod
-    def save_file(cipher_dict) -> None:
+    def save_file(cipher_dict=None) -> None:
         """Saving to JSON file"""
+        if cipher_dict is None:
+            cipher_dict = {}
         with open("./cipher.json", "w", encoding="utf-8") as cipher:
             json.dump(cipher_dict, cipher, ensure_ascii=False, indent=4)
             print("File saved. Returning to main menu")
@@ -22,8 +23,8 @@ class FileHandler:
         except FileNotFoundError:
             print("There is no file.\nReturning to main menu\n")
 
-    def save_to_json(self) -> None:
-        """Saving JSON file"""
-        buffer = Buffer()
-        buffer.text.to_dct(buffer.text.name, buffer.text.memory, buffer.text.status, buffer.text.rot)
-        self.save_file(bu)
+    # def save_to_json(self) -> None:
+    #     """Saving JSON file"""
+    #     buffer = Buffer()
+    #     buffer.text.to_dct(buffer.text.name, buffer.text.memory, buffer.text.status, buffer.text.rot)
+    #     self.save_file(buffer.text.dic)

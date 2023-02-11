@@ -2,7 +2,7 @@ from menu import Menu
 from typing import Optional, Callable, Dict, Any
 from cipher import Cipher
 from buffer import Buffer
-from filehandler import FileHandler
+from file_handler import FileHandler
 
 ROTS = [13, 47]
 
@@ -14,6 +14,7 @@ class Manager:
         self.menu: Any = Menu()
         self.buffer: Any = Buffer()
         self.filehandler: Any = FileHandler()
+        self.cipher = Cipher()
 
         self.menu_options: Dict[int, Callable] = {
             1: self.encrypt_text,
@@ -24,7 +25,7 @@ class Manager:
         self.additional_options: Dict[int, Callable] = {
             1: self.print_text,
             2: self.add_next_text,
-            3: self.filehandler.save_to_json,
+            3: self.save_to_json,
             4: self.filehandler.print_file,
             5: self.menu.show_menu,
             9: self.exit_program,
@@ -33,36 +34,34 @@ class Manager:
     def encrypt_text(self) -> None:
         """Encrypting text with ROT 13/47"""
         if self.buffer.text.rot is None:
-            cipher: Any = Cipher(self.set_rot(), self.set_text())
-            self.buffer.text.memory.append(cipher.encrypt(cipher.rot, cipher.text))
+            self.buffer.text.memory.append(self.cipher.encrypt(self.set_rot(), self.set_text()))
             self.buffer.text.status = "encrypted"
             self.set_text_name()
         else:
-            cipher = Cipher(self.buffer.text.rot, self.set_text())
-            self.buffer.text.memory.append(cipher.encrypt(cipher.rot, cipher.text))
+            print('ssssssssssss')
+            self.buffer.text.memory.append(self.cipher.encrypt(self.buffer.text.rot, self.set_text()))
 
     def decrypt_text(self) -> None:
         """Decrypting text with ROT 13/47"""
         if self.buffer.text.rot is None:
-            cipher: Any = Cipher(self.set_rot(), self.set_text())
-            self.buffer.text.memory.append(cipher.decrypt(cipher.rot, cipher.text))
+            self.buffer.text.memory.append(self.cipher.decrypt(self.set_rot(), self.set_text()))
             self.buffer.text.status = "decrypted"
             self.set_text_name()
         else:
-            cipher = Cipher(self.buffer.text.rot, self.set_text())
-            self.buffer.text.memory.append(cipher.decrypt(cipher.rot, cipher.text))
+            self.buffer.text.memory.append(self.cipher.decrypt(self.buffer.text.rot, self.set_text()))
 
-    def set_rot(self) -> int:
-        """Setting what ROT user want to use"""
+    def user_choice_rot(self):
         try:
-            rot = 0
-            while rot not in ROTS:
-                print(f"Available rots: {ROTS}")
-                rot = int(input("ROT:"))
-            self.buffer.text.rot = rot
-            return rot
+            self.buffer.text.rot = int(input("ROT:"))
         except ValueError:
             print(f"Type only {ROTS} numbers")
+
+    def set_rot(self) -> None:
+        """Setting what ROT user want to use"""
+        while self.buffer.text.rot not in ROTS:
+            print(f"Available rots: {ROTS}")
+            self.user_choice_rot()
+            return self.buffer.text.rot
 
     def set_text(self) -> str:
         """User typing text to encrypt/decrypt"""
@@ -81,35 +80,27 @@ class Manager:
 
     def print_text(self) -> None:
         """Printing users details and encrypted/decrypted text"""
-        print(self.buffer.text, self.buffer.text.memory)  # TODO
+        print(self.buffer.text)
         print("\nReturning to main men\n")
 
-    # def save_to_json(self) -> None:
-    #     """Saving JSON file"""
-    #     self.filehandler.save_file(
-    #         self.buffer.text.to_dct(
-    #             self.buffer.text.name, self.buffer.text.memory, self.buffer.text.status, self.buffer.text.rot
-    #         )
-    #     )
-
-    def menu_choice(self, choice: int) -> None:
-        """Choosing option what user made in main menu"""
-        self.menu_options.get(choice, self.wrong_number)()
-
-    def additional_choice(self, choice: int) -> None:
-        """Choosing option what user made in additional menu"""
-        self.additional_options.get(choice, self.wrong_number)()
+    def save_to_json(self) -> None:
+        """Saving JSON file"""
+        self.filehandler.save_file(
+            self.buffer.text.to_dct(
+                self.buffer.text.name, self.buffer.text.memory, self.buffer.text.status, self.buffer.text.rot
+            )
+        )
 
     def main_menu(self) -> Optional[int]:
-        """Showing options user has"""
+        """Showing options user has and selecting one from menu_options dict"""
         choice = self.menu.show_menu()
-        self.menu_choice(choice)
+        self.menu_options.get(choice, self.wrong_number)()
         return choice
 
     def additional_menu(self) -> Optional[int]:
         """Showing options what user can do with encrypted/decrypted text"""
         choice = self.menu.show_additional_options()
-        self.additional_choice(choice)
+        self.additional_options.get(choice, self.wrong_number)()
         return choice
 
     @staticmethod
