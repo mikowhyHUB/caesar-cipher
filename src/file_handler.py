@@ -22,9 +22,3 @@ class FileHandler:
                 print(json.load(cipher))
         except FileNotFoundError:
             print("There is no file.\nReturning to main menu\n")
-
-    # def save_to_json(self) -> None:
-    #     """Saving JSON file"""
-    #     buffer = Buffer()
-    #     buffer.text.to_dct(buffer.text.name, buffer.text.memory, buffer.text.status, buffer.text.rot)
-    #     self.save_file(buffer.text.dic)
