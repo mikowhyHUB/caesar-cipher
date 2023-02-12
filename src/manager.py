@@ -33,7 +33,7 @@ class TextManager:
             self.buffer.text.memory.append(self.cipher.decrypt(self.buffer.text.rot, self.set_text()))
 
     def user_choice_rot(self) -> None:
-        '''User pick what ROT would he like to use'''
+        """User pick what ROT would he like to use"""
         try:
             self.buffer.text.rot = int(input("ROT:"))
         except ValueError:
@@ -68,7 +68,7 @@ class TextManager:
 
 
 class MenuManager:
-    '''class handling menu operations'''
+    """class handling menu operations"""
 
     def __init__(self):
         self.menu = Menu()
