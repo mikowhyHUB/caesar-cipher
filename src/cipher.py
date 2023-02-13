@@ -2,15 +2,6 @@ from typing import Any
 
 
 class Cipher:
-    """Class for cipher users text"""
-
-    # def __init__(
-    #         self,
-    #         rot: None,
-    #         text: str,
-    # ) -> None:
-    #     self.rot = rot
-    #     self.text = text
 
     @staticmethod
     def encrypt(rot: Any, plain_text: str) -> str:
@@ -35,8 +26,11 @@ class Cipher:
         for char in cipher_text:
             if char == " ":
                 decrypted += " "
-            elif char.isupper():
-                decrypted += chr((ord(char) - rot - 65 + 26) % 26 + 65)
+            elif char.isalpha():
+                if char.isupper():
+                    decrypted += chr((ord(char) - rot - 65 + 26) % 26 + 65)
+                else:
+                    decrypted += chr((ord(char) - rot - 97 + 26) % 26 + 97)
             else:
-                decrypted += chr((ord(char) - rot - 97 + 26) % 26 + 97)
+                decrypted += char
         return decrypted
