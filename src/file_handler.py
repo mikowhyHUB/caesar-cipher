@@ -3,7 +3,6 @@ import json
 
 class FileHandler:
     """Class operating changed text with JSON"""
-    test = {1: 'asd', 2: 'sss'}
 
     @staticmethod
     def save_file(cipher_dict=None) -> None:
