@@ -1,4 +1,4 @@
-from manager import MenuManager
+from .manager import MenuManager
 
 
 def main():

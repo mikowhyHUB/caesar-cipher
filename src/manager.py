@@ -1,8 +1,8 @@
-from menu import Menu
 from typing import Optional, Callable, Dict, Any
-from cipher import Cipher
-from buffer import Buffer
-from file_handler import FileHandler
+from .menu import Menu
+from .cipher import Cipher
+from .buffer import Buffer
+from .file_handler import FileHandler
 
 ROTS = [13, 47]
 
@@ -64,7 +64,7 @@ class TextManager:
     def print_text(self) -> None:
         """Printing users details and encrypted/decrypted text"""
         print(self.buffer.text)
-        print("\nReturning to main men\n")
+        print("\nReturning to main menu\n")
 
 
 class MenuManager:
