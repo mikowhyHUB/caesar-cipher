@@ -1,11 +1,28 @@
 import pytest
 from unittest.mock import patch
-from src.manager import TextManager
+from src.manager import TextManager, MenuManager
+import os
 
 
 @pytest.fixture
 def manager():
     return TextManager()
+
+
+def test_encrypt_text(mocker):
+    mocker.patch('builtins.input', return_value='hello')
+    tm = TextManager()
+    tm.buffer.text.rot = 13
+    tm.encrypt_text()
+    assert tm.buffer.text.memory == ['uryyb']
+
+
+def test_decrypt_text(mocker):
+    mocker.patch('builtins.input', return_value='uryyb')
+    tm = TextManager()
+    tm.buffer.text.rot = 13
+    tm.encrypt_text()
+    assert tm.buffer.text.memory == ['hello']
 
 
 def test_user_choice_rot_valid_input(manager):
@@ -22,15 +39,17 @@ def test_user_choice_rot_invalid_input(manager):
         assert manager.buffer.text.rot is None
 
 
-# def test_set_rot_with_valid_rot(manager):
-#     manager.buffer.text.rot = 47
-#     assert manager.set_rot() == 47
+def test_set_rot_with_valid_rot(mocker):
+    manager = TextManager()
+    mocker.patch('src.manager.TextManager.set_rot', return_value=13)
+    assert manager.set_rot() == 13
+
 
 # def test_set_rot_with_invalid_rot_then_valid_rot(manager):
 #     with patch('builtins.input', side_effect=['14', '3']):
 #         with patch('builtins.print') as mock_print:
+#             mock_print.assert_called_with(f"Available rots:[13,47] ")
 #             assert manager.set_rot() == 14
-#             mock_print.assert_called_with(f"Available rots: ")
 
 def test_set_text(manager):
     with patch("builtins.input", return_value="test text"):
@@ -55,3 +74,9 @@ def test_add_next_text_when_status_is_decrypted(manager):
     with patch.object(manager, 'decrypt_text') as mock_decrypt:
         manager.add_next_text()
         mock_decrypt.assert_called_once()
+
+
+def test_exit_program(mocker):
+    mocker.patch('builtins.quit')
+    MenuManager.exit_program()
+    assert quit.called
