@@ -1,7 +1,6 @@
 import pytest
 from unittest.mock import patch
 from src.manager import TextManager, MenuManager
-import os
 
 
 @pytest.fixture
@@ -50,6 +49,7 @@ def test_set_rot_with_valid_rot(mocker):
 #         with patch('builtins.print') as mock_print:
 #             mock_print.assert_called_with(f"Available rots:[13,47] ")
 #             assert manager.set_rot() == 14
+
 
 def test_set_text(manager):
     with patch("builtins.input", return_value="test text"):
