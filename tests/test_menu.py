@@ -1,8 +1,5 @@
 from src.menu import Menu
 from unittest.mock import patch, call
-import sys
-from io import StringIO
-import pytest
 
 
 def test_is_intro_printing(capfd):
