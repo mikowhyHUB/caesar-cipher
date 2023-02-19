@@ -1,7 +1,8 @@
-from .manager import MenuManager
+from manager import MenuManager
 
 
 def main():
+    print("\nWelcome to Caesar Cipher\n")
     manager = MenuManager()
     while True:
         start = manager.main_menu()
@@ -11,5 +12,6 @@ def main():
                 manager.additional_menu()
 
 
+#
 if __name__ == "__main__":
     main()

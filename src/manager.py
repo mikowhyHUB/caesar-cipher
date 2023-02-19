@@ -1,8 +1,8 @@
 from typing import Optional, Callable, Dict, Any
-from .menu import Menu
-from .cipher import Cipher
-from .buffer import Buffer
-from .file_handler import FileHandler
+from menu import Menu
+from cipher import Cipher
+from buffer import Buffer
+from file_handler import FileHandler
 
 ROTS = [13, 47]
 
@@ -79,15 +79,15 @@ class MenuManager:
             1: self.txt_man.encrypt_text,
             2: self.txt_man.decrypt_text,
             3: self.filehandler.print_file,
-            9: self.exit_program,
+            9: exit
         }
         self.additional_options: Dict[int, Callable] = {
             1: self.txt_man.print_text,
             2: self.txt_man.add_next_text,
             3: self.save_to_json,
             4: self.filehandler.print_file,
-            5: self.menu.show_menu,
-            9: self.exit_program,
+            5: self.menu.user_menu_choice,
+            9: exit
         }
 
     def save_to_json(self) -> None:
@@ -101,13 +101,14 @@ class MenuManager:
 
     def main_menu(self) -> Optional[int]:
         """Showing options user has and selecting one from menu_options dict"""
-        choice = self.menu.show_menu()
-        self.menu_options.get(choice, self.wrong_number)()
+        choice = self.menu.user_menu_choice()
+        self.menu_options.get(choice)()
         return choice
 
     def additional_menu(self) -> Optional[int]:
         """Showing options what user can do with encrypted/decrypted text"""
-        choice = self.menu.show_additional_options()
+        print('XXX')
+        choice = self.menu.user_menu_choice()
         self.additional_options.get(choice, self.wrong_number)()
         return choice
 
@@ -115,7 +116,3 @@ class MenuManager:
     def wrong_number() -> None:
         """Handles invalid menu choices"""
         print("Invalid choice. Please try again.")
-
-    @staticmethod
-    def exit_program() -> None:
-        quit()

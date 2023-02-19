@@ -1,7 +1,9 @@
 class Menu:
+    def __init__(self):
+        self.main_menu = True
+
     """Class responsible for printing options to terminal for user"""
 
-    INTRO_TEXT: str = "\nWelcome to Caesar Cipher\n"
     MENU_OPTIONS: str = (
         "Options:\n"
         "1: Encrypt text\n"
@@ -19,26 +21,28 @@ class Menu:
         "9: Exit program\n"
     )
 
-    @staticmethod
-    def intro() -> None:
-        """Printing intro text"""
-        print(Menu.INTRO_TEXT)
+    # @staticmethod
+    # def intro() -> None:
+    #     """Printing intro text"""
+    #     print(Menu.INTRO_TEXT)
 
-    @staticmethod
-    def show_menu() -> int:
+    # @staticmethod
+    def user_menu_choice(self) -> int:
         """Printing main menu options"""
-        Menu.intro()
         while True:
             try:
+                if not self.main_menu:
+                    return int(input(Menu.ADDITIONAL_OPTIONS))
+                self.main_menu = False
                 return int(input(Menu.MENU_OPTIONS))
             except ValueError:
                 print("You have entered invalid value. Try again.")
 
-    @staticmethod
-    def show_additional_options() -> int:
-        """Printing additional menu options"""
-        while True:
-            try:
-                return int(input(Menu.ADDITIONAL_OPTIONS))
-            except ValueError:
-                print("You have entered invalid value. Try again.")
+    # @staticmethod
+    # def show_additional_options() -> int:
+    #     """Printing additional menu options"""
+    #     while True:
+    #         try:
+    #             return int(input(Menu.ADDITIONAL_OPTIONS))
+    #         except ValueError:
+    #             print("You have entered invalid value. Try again.")
