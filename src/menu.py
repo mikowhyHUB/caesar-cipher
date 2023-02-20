@@ -1,11 +1,12 @@
 class Menu:
-    def __init__(self):
-        self.main_menu = True
-
     """Class responsible for printing options to terminal for user"""
 
+    def __init__(self, main_menu: bool = True, choice: int = None):
+        self.main_menu = main_menu
+        self.choice = choice
+
     MENU_OPTIONS: str = (
-        "Options:\n"
+        "Main Menu:\n"
         "1: Encrypt text\n"
         "2: Decrypt text\n"
         "3: Show saved file\n"
@@ -26,12 +27,13 @@ class Menu:
     #     """Printing intro text"""
     #     print(Menu.INTRO_TEXT)
 
-    @staticmethod
-    def user_menu_choice() -> int:
+    # @staticmethod
+    def user_menu_choice(self) -> int:
         """Printing main menu options"""
         while True:
             try:
-                return int(input(Menu.MENU_OPTIONS))
+                self.choice = int(input(Menu.MENU_OPTIONS))
+                return self.choice
             except ValueError:
                 print("You have entered invalid value. Try again.")
 

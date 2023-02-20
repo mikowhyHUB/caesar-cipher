@@ -30,16 +30,19 @@ class MenuManager:
             9: exit
         }
 
-    def save_to_json(self) -> None:
-        """Saving JSON file"""
-        self.filehandler.save_file(
-            self.txt_man.text.to_dct(self.txt_man.text.status,
-                                     self.txt_man.text.rot))
+    def start(self):
+        while True:
+            choice = self.main_menu()
+            if choice in [1, 2]:
+                additional = self.additional_menu()
+            while additional == 2:
+                self.additional_menu()
 
     def main_menu(self) -> Optional[int]:
         """Showing options user has and selecting one from menu_options dict"""
         try:
-            choice = self.menu.user_menu_choice()
+            choice = self.menu.user_menu_choice()  # GLOWNE MENU
+            print(self.menu.choice)
             self.menu_options.get(choice)()
             return choice
         except TypeError:
@@ -50,6 +53,12 @@ class MenuManager:
         choice = self.menu.show_additional_options()  # to zmienić
         self.additional_options.get(choice)()
         return choice
+
+    def save_to_json(self) -> None:
+        """Saving JSON file"""
+        self.filehandler.save_file(
+            self.txt_man.text.to_dct(self.txt_man.text.status,
+                                     self.txt_man.text.rot))
 
 
 class TextManager:
