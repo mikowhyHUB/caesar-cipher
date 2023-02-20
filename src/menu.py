@@ -26,23 +26,20 @@ class Menu:
     #     """Printing intro text"""
     #     print(Menu.INTRO_TEXT)
 
-    # @staticmethod
-    def user_menu_choice(self) -> int:
+    @staticmethod
+    def user_menu_choice() -> int:
         """Printing main menu options"""
         while True:
             try:
-                if not self.main_menu:
-                    return int(input(Menu.ADDITIONAL_OPTIONS))
-                self.main_menu = False
                 return int(input(Menu.MENU_OPTIONS))
             except ValueError:
                 print("You have entered invalid value. Try again.")
 
-    # @staticmethod
-    # def show_additional_options() -> int:
-    #     """Printing additional menu options"""
-    #     while True:
-    #         try:
-    #             return int(input(Menu.ADDITIONAL_OPTIONS))
-    #         except ValueError:
-    #             print("You have entered invalid value. Try again.")
+    @staticmethod
+    def show_additional_options() -> int:
+        """Printing additional menu options"""
+        while True:
+            try:
+                return int(input(Menu.ADDITIONAL_OPTIONS))
+            except ValueError:
+                print("You have entered invalid value. Try again.")
