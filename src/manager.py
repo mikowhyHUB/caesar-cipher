@@ -21,41 +21,34 @@ class MenuManager:
             3: self.filehandler.print_file,
             9: exit
         }
-        self.additional_options: Dict[int, Callable] = {
+        self.submenu_options: Dict[int, Callable] = {
             1: self.txt_man.print_text,
             2: self.txt_man.add_next_text,
             3: self.save_to_json,
             4: self.filehandler.print_file,
-            5: self.menu.user_menu_choice,
             9: exit
         }
 
-    def start(self):
+    def menu_start(self) -> None:
+        """This code provides a main manu and submenu for the user to select from"""
         while True:
-            choice = self.main_menu()
-            if choice in [1, 2]:
-                additional = self.additional_menu()
-            while additional == 2:
-                self.additional_menu()
-
-    def main_menu(self) -> Optional[int]:
-        """Showing options user has and selecting one from menu_options dict"""
-        try:
-            choice = self.menu.user_menu_choice()  # GLOWNE MENU
-            print(self.menu.choice)
-            self.menu_options.get(choice)()
-            return choice
-        except TypeError:
-            print("Invalid choice. Please try again.")
-
-    def additional_menu(self) -> Optional[int]:
-        """Showing options what user can do with encrypted/decrypted text"""
-        choice = self.menu.show_additional_options()  # to zmienić
-        self.additional_options.get(choice)()
-        return choice
+            try:
+                if self.menu.main_menu:
+                    self.menu.user_menu_choice()
+                    self.menu_options.get(self.menu.choice)()
+                    self.menu.main_menu = False
+                while self.menu.choice == 2:
+                    self.menu.user_menu_choice()
+                    self.submenu_options.get(self.menu.choice)()
+                self.menu.user_menu_choice()
+                self.submenu_options.get(self.menu.choice)()
+            except TypeError:
+                print("Invalid choice. Please try again.")
 
     def save_to_json(self) -> None:
         """Saving JSON file"""
+        self.menu.choice = None
+        self.menu.main_menu = True
         self.filehandler.save_file(
             self.txt_man.text.to_dct(self.txt_man.text.status,
                                      self.txt_man.text.rot))
@@ -96,7 +89,7 @@ class TextManager:
         while self.text.rot not in ROTS:
             print(f"Available rots: {ROTS}")
             self.user_choice_rot()
-            return self.text.rot
+        return self.text.rot
 
     def set_text(self) -> str:
         """User typing text to encrypt/decrypt"""
@@ -112,4 +105,3 @@ class TextManager:
     def print_text(self) -> None:
         """Printing users details and encrypted/decrypted text"""
         print(self.text)
-        print("\nReturning to main menu\n")
