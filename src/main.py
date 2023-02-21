@@ -4,7 +4,7 @@ from manager import MenuManager
 def main():
     print("\nWelcome to Caesar Cipher\n")
     manager = MenuManager()
-    manager.start()
+    manager.menu_start()
 
 
 #

@@ -1,8 +1,9 @@
 class Menu:
     """Class responsible for printing options to terminal for user"""
 
-    def __init__(self, choice: int = None) -> None:
+    def __init__(self, choice: int = None, main_menu: bool = True) -> None:
         self.choice = choice
+        self.main_menu = main_menu
 
     MENU_OPTIONS: str = (
         "Main Menu:\n"
@@ -25,8 +26,10 @@ class Menu:
         while True:
             try:
                 if self.choice is None:
+                    print('y1')
                     self.choice = int(input(Menu.MENU_OPTIONS))
                     return self.choice
+                print('y2')
                 self.choice = int(input(Menu.ADDITIONAL_OPTIONS))
                 return self.choice
             except ValueError:
