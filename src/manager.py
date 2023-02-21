@@ -45,31 +45,6 @@ class MenuManager:
             except TypeError:
                 print("Invalid choice. Please try again.")
 
-    # def menu_start(self) -> None:
-    #     """This code provides a menu for the user to select from"""
-    #     while True:
-    #         self.main_menu()
-    #         if self.menu.choice in [1, 2]:
-    #             self.additional_menu()
-    #         while self.menu.choice == 2:
-    #             self.additional_menu()
-
-    # def main_menu(self) -> None:
-    #     """Showing options user has and selecting one from menu_options dict"""
-    #     try:
-    #         self.menu.user_menu_choice()
-    #         self.menu_options.get(self.menu.choice)()
-    #     except TypeError:
-    #         print("Invalid choice. Please try again.")
-    #
-    # def additional_menu(self) -> None:
-    #     """Showing options what user can do with encrypted/decrypted text"""
-    #     try:
-    #         self.menu.user_menu_choice()
-    #         self.submenu_options.get(self.menu.choice)()
-    #     except TypeError:
-    #         print("Invalid choice. Please try again.")
-
     def save_to_json(self) -> None:
         """Saving JSON file"""
         self.menu.choice = None
@@ -113,8 +88,8 @@ class TextManager:
         """Setting what ROT user want to use"""
         while self.text.rot not in ROTS:
             print(f"Available rots: {ROTS}")
-            self.user_choice_rot()  # TODO
-            return self.text.rot
+            self.user_choice_rot()
+        return self.text.rot
 
     def set_text(self) -> str:
         """User typing text to encrypt/decrypt"""
