@@ -25,21 +25,7 @@ class Menu:
         """Printing main menu/additional options"""
         while True:
             try:
-                if self.choice is None:
-                    print('y1')
-                    self.choice = int(input(Menu.MENU_OPTIONS))
-                    return self.choice
-                print('y2')
-                self.choice = int(input(Menu.ADDITIONAL_OPTIONS))
+                self.choice = int(input(prompt))
                 return self.choice
             except ValueError:
                 print("You have entered invalid value. Try again.")
-
-    # @staticmethod
-    # def show_additional_options() -> int:
-    #     """Printing additional menu options"""
-    #     while True:
-    #         try:
-    #             return int(input(Menu.ADDITIONAL_OPTIONS))
-    #         except ValueError:
-    #             print("You have entered invalid value. Try again.")

@@ -11,9 +11,9 @@ def manager():
 def test_encrypt_text(mocker):
     mocker.patch('builtins.input', return_value='hello')
     tm = TextManager()
-    tm.buffer.text.rot = 13
+    tm.text.rot = 13
     tm.encrypt_text()
-    assert tm.buffer.text.memory == ['uryyb']
+    assert tm.text.memory == ['uryyb']
 
 
 def test_decrypt_text(mocker):
@@ -44,13 +44,6 @@ def test_set_rot_with_valid_rot(mocker):
     assert manager.set_rot() == 13
 
 
-# def test_set_rot_with_invalid_rot_then_valid_rot(manager):
-#     with patch('builtins.input', side_effect=['14', '3']):
-#         with patch('builtins.print') as mock_print:
-#             mock_print.assert_called_with(f"Available rots:[13,47] ")
-#             assert manager.set_rot() == 14
-
-
 def test_set_text(manager):
     with patch("builtins.input", return_value="test text"):
         assert manager.set_text() == 'test text'
@@ -74,9 +67,3 @@ def test_add_next_text_when_status_is_decrypted(manager):
     with patch.object(manager, 'decrypt_text') as mock_decrypt:
         manager.add_next_text()
         mock_decrypt.assert_called_once()
-
-
-def test_exit_program(mocker):
-    mocker.patch('builtins.quit')
-    MenuManager.exit_program()
-    assert quit.called
