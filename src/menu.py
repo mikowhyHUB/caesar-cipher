@@ -3,7 +3,7 @@ class Menu:
 
     def __init__(self, choice: int = None, main_menu: bool = True) -> None:
         self.choice = choice
-        self.main_menu = main_menu
+        self.main_menu = main_menu  # TODO change variable name
 
     MENU_OPTIONS: str = (
         "Main Menu:\n"
@@ -18,10 +18,11 @@ class Menu:
         "2: Add next text\n"
         "3: Save to file\n"
         "4: Show saved file\n"
+        "5: Back to main menu\n"
         "9: Exit program\n"
     )
 
-    def user_menu_choice(self) -> int:
+    def user_menu_choice(self, prompt: str) -> int:
         """Printing main menu/additional options"""
         while True:
             try:
