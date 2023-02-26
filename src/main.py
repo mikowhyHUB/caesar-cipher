@@ -1,8 +1,8 @@
-from manager import MenuManager
+from manager import Manager
 
 
 def main():
-    manager = MenuManager()
+    manager: Manager = Manager()
     manager.run()
 
 

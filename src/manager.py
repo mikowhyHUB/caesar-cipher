@@ -7,7 +7,7 @@ from file_handler import FileHandler
 ROTS = [13, 47]
 
 
-class MenuManager:
+class Manager:
     """class handling menu operations"""
 
     def __init__(self):
@@ -35,18 +35,18 @@ class MenuManager:
         print("\nWelcome to Caesar Cipher\n")
         while True:
             try:
-                if self.menu.main_menu:
+                if self.menu.is_main_menu_on:
                     self.menu.user_menu_choice(Menu.MENU_OPTIONS)
                     self.menu_options.get(self.menu.choice)()
-                    self.menu.main_menu = False
-                while not self.menu.main_menu:
+                    self.menu.is_main_menu_on = False
+                while not self.menu.is_main_menu_on:
                     self.menu.user_menu_choice(Menu.ADDITIONAL_OPTIONS)
                     self.submenu_options.get(self.menu.choice)()
             except TypeError:
                 print("Invalid choice. Please try again.")
 
     def back_to_menu(self):
-        self.menu.main_menu = True
+        self.menu.is_main_menu_on = True
 
     def save_to_json(self) -> None:
         """Saving JSON file"""
@@ -61,10 +61,10 @@ class TextManager:
     """Class handling text operations"""
 
     def __init__(self) -> None:
-        self.text: Any = Text()
-        self.cipher: Any = Cipher()
+        self.text: Text = Text()
+        self.cipher: Cipher = Cipher()
 
-    def cipher_that(self, func, status: str):  # TODO TEXT
+    def cipher_that(self, func, status: str)->None
         if self.text.rot is None:
             self.text.buffer.memory.append(func(self.set_rot(), self.set_text()))
             self.text.status = status
@@ -74,20 +74,11 @@ class TextManager:
     def encrypt_text(self) -> None:
         """Encrypting text with ROT 13/47"""
         self.cipher_that(self.cipher.encrypt, 'encrypted')
-        # if self.text.rot is None:
-        #     self.text.buffer.memory.append(self.cipher.encrypt(self.set_rot(), self.set_text()))
-        #     self.text.status = "encrypted"
-        # else:
-        #     self.text.buffer.memory.append(self.cipher.encrypt(self.text.rot, self.set_text()))
+
 
     def decrypt_text(self) -> None:
         """Decrypting text with ROT 13/47"""
         self.cipher_that(self.cipher.decrypt, 'decrypted')
-        # if self.text.rot is None:
-        #     self.text.buffer.memory.append(self.cipher.decrypt(self.set_rot(), self.set_text()))
-        #     self.text.status = "decrypted"
-        # else:
-        #     self.text.buffer.memory.append(self.cipher.decrypt(self.text.rot, self.set_text()))
 
     def user_choice_rot(self) -> None:
         """User picks what ROT would he like to use"""

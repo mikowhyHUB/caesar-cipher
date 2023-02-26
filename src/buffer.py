@@ -2,6 +2,13 @@ from datetime import datetime
 from typing import Any
 
 
+class Buffer:
+    """Class storing list of cipher text"""
+
+    def __init__(self) -> None:
+        self.memory: list = []
+
+
 class Text:
     """This class creates a Text object which contains the text, creation date, status and rot"""
 
@@ -24,10 +31,3 @@ class Text:
     def __str__(self) -> str:
         """Printing text"""
         return f'Cipher text with ROT{self.rot}: {self.buffer.memory}'
-
-
-class Buffer:
-    """Class storing list of cipher text"""
-
-    def __init__(self) -> None:
-        self.memory: list = []

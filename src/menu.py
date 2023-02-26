@@ -1,9 +1,9 @@
 class Menu:
     """Class responsible for printing options to terminal for user"""
 
-    def __init__(self, choice: int = None, main_menu: bool = True) -> None:
+    def __init__(self, choice: int = None, is_main_menu_on: bool = True) -> None:
         self.choice = choice
-        self.main_menu = main_menu  # TODO change variable name
+        self.is_main_menu_on = is_main_menu_on
 
     MENU_OPTIONS: str = (
         "Main Menu:\n"
