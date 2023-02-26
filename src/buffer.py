@@ -16,7 +16,7 @@ class Text:
         self.status = status
         self.rot = rot
         self.DT_STRING: str = str(datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
-        self.buffer: Buffer = Buffer()
+
 
     def to_dct(self, status: str, rot: int) -> dict:
         """Changing Text object to dict."""
