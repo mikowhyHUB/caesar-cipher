@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from src.manager import TextManager, MenuManager
+from src.manager import TextManager
 
 
 @pytest.fixture
@@ -13,7 +13,7 @@ def test_encrypt_text(mocker):
     tm = TextManager()
     tm.text.rot = 13
     tm.encrypt_text()
-    assert tm.text.memory == ['uryyb']
+    assert tm.text.buffer.memory == ['uryyb']
 
 
 def test_decrypt_text(mocker):

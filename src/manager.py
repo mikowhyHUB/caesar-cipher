@@ -64,7 +64,7 @@ class TextManager:
         self.text: Text = Text()
         self.cipher: Cipher = Cipher()
 
-    def cipher_that(self, func, status: str)->None
+    def cipher_that(self, func, status: str) -> None:
         if self.text.rot is None:
             self.text.buffer.memory.append(func(self.set_rot(), self.set_text()))
             self.text.status = status
@@ -74,7 +74,6 @@ class TextManager:
     def encrypt_text(self) -> None:
         """Encrypting text with ROT 13/47"""
         self.cipher_that(self.cipher.encrypt, 'encrypted')
-
 
     def decrypt_text(self) -> None:
         """Decrypting text with ROT 13/47"""

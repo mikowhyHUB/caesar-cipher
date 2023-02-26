@@ -1,7 +1,6 @@
 from datetime import datetime
 
 
-
 class Buffer:
     """Class storing list of cipher text"""
 
