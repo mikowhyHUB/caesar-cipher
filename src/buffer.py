@@ -20,7 +20,7 @@ class Text:
         self.buffer: Buffer = Buffer()
 
     def to_dct(self, status: str, rot: int) -> dict:
-        """Changing Text object to dict"""
+        """Changing Text object to dict."""
         return {
             'text': self.buffer.memory,
             "created": self.DT_STRING,
