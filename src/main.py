@@ -1,12 +1,10 @@
-from manager import MenuManager
+from manager import Manager
 
 
 def main():
-    print("\nWelcome to Caesar Cipher\n")
-    manager = MenuManager()
-    manager.menu_start()
+    manager: Manager = Manager()
+    manager.run()
 
 
-#
 if __name__ == "__main__":
     main()
