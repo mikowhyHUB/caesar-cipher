@@ -3,11 +3,6 @@ import pytest
 import datetime
 
 
-@pytest.fixture
-def buffer():
-    return Buffer()
-
-
 class TestBuffer:
     def setup_method(self):
         self.buffer = Buffer()
@@ -16,33 +11,34 @@ class TestBuffer:
         assert self.buffer.memory == []
 
     @pytest.mark.parametrize('word', ['hello', 'xyz xyz', '123'])
-    def test_buffer_add_text(self, buffer, word):
-        buffer.memory.append(word)
-        assert buffer.memory == [word]
+    def test_buffer_add_text(self, word):
+        self.buffer.memory.append(word)
+        assert self.buffer.memory == [word]
 
-    def test_buffer_add_multiple_texts(self, buffer):
-        buffer.memory.append("hello")
-        buffer.memory.append("world")
-        assert buffer.memory == ["hello", "world"]
+    def test_buffer_add_multiple_texts(self):
+        self.buffer.memory.append("hello")
+        self.buffer.memory.append("world")
+        assert self.buffer.memory == ["hello", "world"]
 
-    def test_buffer_clear(self, buffer):
-        buffer.memory.append("hello")
-        buffer.memory.clear()
-        assert buffer.memory == []
-
-
-@pytest.fixture
-def text_object():
-    return Text("encrypted", 13)
+    def test_buffer_clear(self):
+        self.buffer.memory.append("hello")
+        self.buffer.memory.clear()
+        assert self.buffer.memory == []
 
 
-def test_text_object(text_object):
-    assert text_object.status == "encrypted"
-    assert text_object.rot == 13
+@pytest.fixture()
+def text():
+    return Text()
 
 
-def test_to_dct(text_object):
-    result = text_object.to_dct(status="encrypted", rot=47)
+def test_text_object():
+    text = Text("encrypted", 13)
+    assert text.status == "encrypted"
+    assert text.rot == 13
+
+
+def test_to_dct(text):
+    result = text.to_dct(status="encrypted", rot=47)
     expected_result = {
         "text": [],
         "created": str(datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")),
